@@ -1,13 +1,14 @@
-if Spree.user_class
-  Spree.user_class.class_eval do
+module Spree
+  module UserDecorator
 
-    after_create  :subscribe
-    after_destroy :unsubscribe
-    after_initialize :assign_subscription_default
+    def self.prepended(base)
+      base.after_create  :subscribe
+      base.after_destroy :unsubscribe
+      base.after_initialize :assign_subscription_default
 
-    delegate :subscribe, :resubscribe, :unsubscribe, to: :subscription
+      base.delegate :subscribe, :resubscribe, :unsubscribe, to: :subscription
+    end
 
-  private
     def subscription
       Spree::Chimpy::Subscription.new(self)
     end
@@ -15,5 +16,7 @@ if Spree.user_class
     def assign_subscription_default
       self.subscribed ||= Spree::Chimpy::Config.subscribed_by_default if new_record?
     end
+  
   end
 end
+::Spree::User.prepend(Spree::UserDecorator)
