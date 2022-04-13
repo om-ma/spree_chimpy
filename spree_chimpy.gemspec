@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'spree_core', '>= 4.0'
-  s.add_dependency 'gibbon', '~> 2.2'
+  s.add_dependency 'gibbon', '~> 3.4'
 
   s.add_development_dependency 'rspec-rails', '~> 2.14'
   s.add_development_dependency 'rubocop'

@@ -13,7 +13,7 @@ module Spree::Chimpy
     initializer 'spree_chimpy.ensure' do
       if !Rails.env.test? && Spree::Chimpy.configured?
         Spree::Chimpy.ensure_list
-        Spree::Chimpy.ensure_segment
+        # Spree::Chimpy.ensure_segment
       end
     end
 
