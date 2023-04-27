@@ -17,7 +17,9 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '>= 4.0'
+  spree_version = '>= 4.3.0.rc1'
+  s.add_dependency 'spree', spree_version
+  s.add_dependency 'spree_emails', spree_version
   s.add_dependency 'gibbon', '~> 3.4'
 
   s.add_development_dependency 'rspec-rails', '~> 2.14'

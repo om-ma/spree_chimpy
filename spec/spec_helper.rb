@@ -22,8 +22,9 @@ require 'capybara/poltergeist'
 
 Capybara.javascript_driver = :poltergeist
 
+Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].sort.each { |f| require f }
 
-Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
+ActiveJob::Base.queue_adapter = :inline
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   # == URL Helpers

@@ -1,3 +1,4 @@
+require_relative 'configuration'
 module Spree::Chimpy
   class Engine < Rails::Engine
     require 'spree/core'
@@ -10,6 +11,10 @@ module Spree::Chimpy
       Spree::Chimpy::Config = Spree::Chimpy::Configuration.new
     end
 
+    # config.after_initialize do
+    #   Spree::PermittedAttributes.user_attributes << :subscribed
+    # end
+    
     initializer 'spree_chimpy.ensure' do
       if !Rails.env.test? && Spree::Chimpy.configured?
         Spree::Chimpy.ensure_list

@@ -1,15 +1,22 @@
 require 'spree_core'
 require 'spree/chimpy/engine'
+require 'spree_backend'
+require 'spree_emails'
 require 'spree/chimpy/subscription'
 require 'spree/chimpy/workers/delayed_job'
 require 'gibbon'
 require 'coffee_script'
+require 'spree_extension'
+require 'deface'
+
 
 module Spree::Chimpy
   extend self
 
   def config(&block)
-    yield(Spree::Chimpy::Config)
+    Rails.application.config.after_initialize do
+      yield(Spree::Chimpy::Config)
+    end
   end
 
   def enqueue(event, object)
@@ -22,7 +29,7 @@ module Spree::Chimpy
   end
 
   def configured?
-    Config.key.present? && (Config.list_name.present? || Config.list_id.present?)
+    # Config.key.present? && (Config.list_name.present? || Config.list_id.present?)
   end
 
   def reset
