@@ -1,6 +1,6 @@
 RSpec.configure do |config|
 
   config.before do
-    Spree::Chimpy.reset
+    SpreeChimpy.reset
   end
 end

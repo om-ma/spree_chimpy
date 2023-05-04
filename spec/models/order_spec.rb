@@ -11,14 +11,14 @@ describe Spree::Order do
 
   context 'notifying mail chimp' do
     before do
-      Spree::Chimpy::Config.key = nil
+      SpreeChimpy::Config.key = nil
 
       @not_completed_order = create(:order)
 
-      Spree::Chimpy::Config.key = key
+      SpreeChimpy::Config.key = key
     end
 
-    subject { Spree::Chimpy }
+    subject { SpreeChimpy }
 
     it 'doesnt update when order is not completed' do
       expect(subject).to_not receive(:enqueue)

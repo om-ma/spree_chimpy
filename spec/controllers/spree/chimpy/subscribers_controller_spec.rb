@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::Chimpy::SubscribersController do
+describe SpreeChimpy::SubscribersController do
 
   let(:spree_chimpy_subscriber) { create(:subscriber) }
   let(:valid_attributes) { attributes_for(:subscriber) }

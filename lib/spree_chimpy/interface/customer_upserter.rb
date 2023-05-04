@@ -1,7 +1,7 @@
-module Spree::Chimpy
+module SpreeChimpy
   module Interface
     class CustomerUpserter
-      delegate :log, :store_api_call, to: Spree::Chimpy
+      delegate :log, :store_api_call, to: SpreeChimpy
 
       def initialize(order)
         @order = order
@@ -21,7 +21,7 @@ module Spree::Chimpy
       end
 
       def customer_id_from_eid(mc_eid)
-        email = Spree::Chimpy.list.email_for_id(mc_eid)
+        email = SpreeChimpy.list.email_for_id(mc_eid)
         if email
           begin
             response = store_api_call
@@ -53,7 +53,7 @@ module Spree::Chimpy
             .create(body: {
               id: customer_id,
               email_address: @order.email.downcase,
-              opt_in_status: Spree::Chimpy::Config.subscribe_to_list || false
+              opt_in_status: SpreeChimpy::Config.subscribe_to_list || false
             })
         end
         customer_id

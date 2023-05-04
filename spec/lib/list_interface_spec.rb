@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::Chimpy::Interface::List do
+describe SpreeChimpy::Interface::List do
   let(:interface)         { described_class.new('Members', 'customers', true, true, nil) }
   let(:api)               { double(:api) }
   let(:list_id)           { "a3d3" }
@@ -26,7 +26,7 @@ describe Spree::Chimpy::Interface::List do
   let(:merges_api)        { double(:merges_api) }
 
   before do
-    Spree::Chimpy::Config.key = key
+    SpreeChimpy::Config.key = key
     Gibbon::Request.stub(:new).with({ api_key: key, timeout: 60 }).and_return(api)
 
     api.stub(:lists).and_return(lists_api)

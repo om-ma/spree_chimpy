@@ -1,8 +1,8 @@
-class Spree::Chimpy::SubscribersController < ApplicationController
+class SpreeChimpy::SubscribersController < ApplicationController
   respond_to :html, :json
 
   def create
-    @subscriber = Spree::Chimpy::Subscriber.where(email: subscriber_params[:email]).first_or_initialize
+    @subscriber = SpreeChimpy::Subscriber.where(email: subscriber_params[:email]).first_or_initialize
     @subscriber.email = subscriber_params[:email]
     @subscriber.subscribed = subscriber_params[:subscribed]
     if @subscriber.save

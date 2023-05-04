@@ -1,7 +1,7 @@
-module Spree::Chimpy
+module SpreeChimpy
   module Interface
     class OrderUpserter
-      delegate :log, :store_api_call, to: Spree::Chimpy
+      delegate :log, :store_api_call, to: SpreeChimpy
 
       def initialize(order)
         @order = order

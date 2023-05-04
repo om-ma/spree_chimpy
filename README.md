@@ -70,7 +70,7 @@ Install migrations & initializer file:
 
 If you don't already have an account, you can [create one here][4] for free.
 
-Make sure to create a list if you don't already have one. Use any name you like, just dont forget to update the `Spree::Chimpy::Config#list_name` setting.
+Make sure to create a list if you don't already have one. Use any name you like, just dont forget to update the `SpreeChimpy::Config#list_name` setting.
 
 ### Spree Setup
 
@@ -78,7 +78,7 @@ Edit the initializer created by the `spree_chimpy:install` generator. Only the A
 
 ```ruby
 # config/initializers/spree_chimpy.rb
-Spree::Chimpy.config do |config|
+SpreeChimpy.config do |config|
   # your API key provided by MailChimp
   config.key = 'your-api-key'
 end
@@ -88,7 +88,7 @@ If you'd like, you can add additional options:
 
 ```ruby
 # config/initializers/spree_chimpy.rb
-Spree::Chimpy.config do |config|
+SpreeChimpy.config do |config|
   # your API key as provided by MailChimp
   config.key = 'your-api-key'
 
@@ -121,7 +121,7 @@ For deployment on Heroku, you can configure the API key with environment variabl
 
 ```ruby
 # config/initializers/spree_chimpy.rb
-Spree::Chimpy.config do |config|
+SpreeChimpy.config do |config|
   config.key = ENV['MAILCHIMP_API_KEY']
 end
 ```

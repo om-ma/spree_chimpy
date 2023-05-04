@@ -1,7 +1,7 @@
-module Spree::Chimpy
+module SpreeChimpy
   module Workers
     class Sidekiq
-      delegate :log, to: Spree::Chimpy
+      delegate :log, to: SpreeChimpy
       if defined?(::Sidekiq)
         include ::Sidekiq::Worker
         sidekiq_options queue: :mailchimp, retry: 3,
@@ -9,7 +9,7 @@ module Spree::Chimpy
       end
 
       def perform(payload)
-        Spree::Chimpy.perform(payload.with_indifferent_access)
+        SpreeChimpy.perform(payload.with_indifferent_access)
       rescue Excon::Errors::Timeout, Excon::Errors::SocketError
         log "Mailchimp connection timeout reached, closing"
       end

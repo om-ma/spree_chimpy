@@ -10,13 +10,13 @@ module Spree
     end
 
     def subscription
-      Spree::Chimpy::Subscription.new(self)
+      SpreeChimpy::Subscription.new(self)
     end
 
     def assign_subscription_default
-      self.subscribed ||= Spree::Chimpy::Config.subscribed_by_default if new_record?
+      self.subscribed ||= SpreeChimpy::Config.subscribed_by_default if new_record?
     end
-  
+
   end
 end
 ::Spree::User.prepend(Spree::UserDecorator)

@@ -1,7 +1,7 @@
-module Spree::Chimpy
+module SpreeChimpy
   module Interface
     class Products
-      delegate :log, :store_api_call, to: Spree::Chimpy
+      delegate :log, :store_api_call, to: SpreeChimpy
       include Rails.application.routes.url_helpers
 
       def initialize(variant)

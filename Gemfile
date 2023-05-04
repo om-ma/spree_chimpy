@@ -1,13 +1,15 @@
 source 'https://rubygems.org'
 
-gem 'spree', github: 'spree/spree', branch: 'main'
-gem 'spree_backend', github: 'spree/spree_backend', branch: 'main'
-gem 'spree_frontend', github: 'spree/spree_legacy_frontend', branch: 'main'
-gem 'spree_emails', github: 'spree/spree', branch: 'main'
-gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: 'main'
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
+  "https://github.com/#{repo_name}.git"
+end
+
+gem 'spree', '~> 4.5'
 gem 'libnotify'
 gem 'fuubar'
 gem 'byebug'
 gem 'pry-byebug'
+gem 'rails-controller-testing'
 
 gemspec

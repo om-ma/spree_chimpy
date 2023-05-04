@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe Spree::Chimpy::Subscription do
+describe SpreeChimpy::Subscription do
 
   context "mail chimp enabled" do
     let(:interface)    { double(:interface) }
 
     before do
-      Spree::Chimpy::Config.list_name  = 'Members'
-      Spree::Chimpy::Config.merge_vars = {'EMAIL' => :email}
-      Spree::Chimpy.stub(list: interface)
+      SpreeChimpy::Config.list_name  = 'Members'
+      SpreeChimpy::Config.merge_vars = {'EMAIL' => :email}
+      SpreeChimpy.stub(list: interface)
     end
 
     context "subscribing users" do
@@ -16,7 +16,7 @@ describe Spree::Chimpy::Subscription do
       let(:subscription) { described_class.new(user) }
 
       before do
-        Spree::Chimpy::Config.merge_vars = {'EMAIL' => :email, 'SIZE' => :size, 'HEIGHT' => :height}
+        SpreeChimpy::Config.merge_vars = {'EMAIL' => :email, 'SIZE' => :size, 'HEIGHT' => :height}
 
         def user.size
           '10'
@@ -34,7 +34,7 @@ describe Spree::Chimpy::Subscription do
     end
 
     context "subscribing subscribers" do
-      let(:subscriber)   { Spree::Chimpy::Subscriber.new(email: "test@example.com", subscribed: true) }
+      let(:subscriber)   { SpreeChimpy::Subscriber.new(email: "test@example.com", subscribed: true) }
       let(:subscription) { described_class.new(subscriber) }
 
       it "subscribes subscribers" do
@@ -122,7 +122,7 @@ describe Spree::Chimpy::Subscription do
           let(:user) { create(:user, subscribed: true, size: 10, height: 20) }
 
           before do
-            Spree::Chimpy::Config.merge_vars = {'EMAIL' => :email, 'SIZE' => :size, 'HEIGHT' => :height}
+            SpreeChimpy::Config.merge_vars = {'EMAIL' => :email, 'SIZE' => :size, 'HEIGHT' => :height}
 
             Spree::User.class_eval do
               attr_accessor :size, :height
@@ -154,7 +154,7 @@ describe Spree::Chimpy::Subscription do
 
   context "mail chimp disabled" do
     before do
-      Spree::Chimpy::Config.stub(key: nil)
+      SpreeChimpy::Config.stub(key: nil)
 
       user = build(:user, subscribed: true)
       @subscription = described_class.new(user)

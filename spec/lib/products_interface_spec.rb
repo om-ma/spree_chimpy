@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::Chimpy::Interface::Products do
+describe SpreeChimpy::Interface::Products do
   let(:store_api) { double(:store_api) }
   let(:customer_id) { "customer_123" }
 
@@ -8,7 +8,7 @@ describe Spree::Chimpy::Interface::Products do
   let(:products_api) { double(:products_api) }
 
   before(:each) do
-    allow(Spree::Chimpy).to receive(:store_api_call) { store_api }
+    allow(SpreeChimpy).to receive(:store_api_call) { store_api }
     allow(store_api).to receive(:products) { products_api }
   end
 

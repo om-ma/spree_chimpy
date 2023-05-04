@@ -1,4 +1,4 @@
-<% @subscriber ||= Spree::Chimpy::Subscriber.new %>
+<% @subscriber ||= SpreeChimpy::Subscriber.new %>
 <%= form_for @subscriber do |f| %>
   <div>
     <h2><%= Spree.t(:subscribe_title, scope: :chimpy) %></h2>

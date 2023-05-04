@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::Chimpy::Interface::OrderUpserter do
+describe SpreeChimpy::Interface::OrderUpserter do
   let(:store_id)  { "super-store" }
   let(:store_api) { double(:store_api) }
   let(:order_api) { double(:order_api) }
@@ -8,7 +8,7 @@ describe Spree::Chimpy::Interface::OrderUpserter do
   let(:customer_id) { "customer_123" }
 
   before(:each) do
-    allow(Spree::Chimpy).to receive(:store_api_call) { store_api }
+    allow(SpreeChimpy).to receive(:store_api_call) { store_api }
   end
 
   def create_order(options={})
@@ -18,7 +18,7 @@ describe Spree::Chimpy::Interface::OrderUpserter do
     # we need to stub :notify_mail_chimp otherwise sync will be called on the order on update!
     allow_any_instance_of(Spree::Order).to receive(:notify_mail_chimp).and_return(true)
     order = create(:completed_order_with_totals, user: user, email: options[:email])
-    order.source = Spree::Chimpy::OrderSource.new(email_id: options[:email_id], campaign_id: options[:campaign_id])
+    order.source = SpreeChimpy::OrderSource.new(email_id: options[:email_id], campaign_id: options[:campaign_id])
     order.save
     order
   end
@@ -51,14 +51,14 @@ describe Spree::Chimpy::Interface::OrderUpserter do
       allow(store_api).to receive(:orders)
         .with(anything)
         .and_return(order_api)
-      allow(Spree::Chimpy::Interface::Products).to receive(:ensure_products)
-      allow(Spree::Chimpy::Interface::CustomerUpserter).to receive(:new).with(order) { customer_upserter }
+      allow(SpreeChimpy::Interface::Products).to receive(:ensure_products)
+      allow(SpreeChimpy::Interface::CustomerUpserter).to receive(:new).with(order) { customer_upserter }
       allow(customer_upserter).to receive(:ensure_customer) { customer_id }
     end
 
     it "calls ensure_products" do
       allow(interface).to receive(:perform_upsert)
-      expect(Spree::Chimpy::Interface::Products).to receive(:ensure_products).with(order)
+      expect(SpreeChimpy::Interface::Products).to receive(:ensure_products).with(order)
       interface.upsert
     end
 

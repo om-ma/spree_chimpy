@@ -1,4 +1,4 @@
-class Spree::Chimpy::Subscriber < ActiveRecord::Base
+class SpreeChimpy::Subscriber < ActiveRecord::Base
   self.table_name = "spree_chimpy_subscribers"
 
   EMAIL_REGEX = /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i
@@ -14,7 +14,7 @@ class Spree::Chimpy::Subscriber < ActiveRecord::Base
 
 private
   def subscription
-    Spree::Chimpy::Subscription.new(self)
+    SpreeChimpy::Subscription.new(self)
   end
 
 end

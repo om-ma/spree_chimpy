@@ -1,6 +1,6 @@
-module Spree::Chimpy
+module SpreeChimpy
   class Subscription
-    delegate :configured?, :enqueue, to: Spree::Chimpy
+    delegate :configured?, :enqueue, to: SpreeChimpy
 
     def initialize(model)
       @model      = model

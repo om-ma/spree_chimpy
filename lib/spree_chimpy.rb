@@ -1,21 +1,18 @@
 require 'spree_core'
-require 'spree/chimpy/engine'
-require 'spree_backend'
-require 'spree_emails'
-require 'spree/chimpy/subscription'
-require 'spree/chimpy/workers/delayed_job'
-require 'gibbon'
-require 'coffee_script'
 require 'spree_extension'
-require 'deface'
+require 'spree_chimpy/engine'
+require 'spree_chimpy/version'
+require 'spree_chimpy/subscription'
+require 'spree_chimpy/workers/delayed_job'
+require 'gibbon'
+# require 'coffee_script'
 
-
-module Spree::Chimpy
+module SpreeChimpy
   extend self
 
   def config(&block)
     Rails.application.config.after_initialize do
-      yield(Spree::Chimpy::Config)
+      yield(SpreeChimpy::Config)
     end
   end
 
@@ -41,7 +38,7 @@ module Spree::Chimpy
   end
 
   def store_api_call
-    Spree::Chimpy.api.ecommerce.stores(Spree::Chimpy::Config.store_id)
+    SpreeChimpy.api.ecommerce.stores(SpreeChimpy::Config.store_id)
   end
 
   def list
@@ -110,12 +107,12 @@ module Spree::Chimpy
 
     case
     when defined?(::Delayed::Job)
-      ::Delayed::Job.enqueue(payload_object: Spree::Chimpy::Workers::DelayedJob.new(payload),
+      ::Delayed::Job.enqueue(payload_object: SpreeChimpy::Workers::DelayedJob.new(payload),
                              run_at: Proc.new { 4.minutes.from_now })
     when defined?(::Sidekiq)
-      Spree::Chimpy::Workers::Sidekiq.perform_in(4.minutes, payload.except(:object))
+      SpreeChimpy::Workers::Sidekiq.perform_in(4.minutes, payload.except(:object))
     when defined?(::Resque)
-      ::Resque.enqueue(Spree::Chimpy::Workers::Resque, payload.except(:object))
+      ::Resque.enqueue(SpreeChimpy::Workers::Resque, payload.except(:object))
     else
       perform(payload)
     end

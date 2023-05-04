@@ -2,7 +2,7 @@ namespace :spree_chimpy do
   namespace :merge_vars do
     desc 'sync merge vars with mail chimp'
     task :sync do
-      Spree::Chimpy.sync_merge_vars
+      SpreeChimpy.sync_merge_vars
     end
   end
 
@@ -35,10 +35,10 @@ namespace :spree_chimpy do
   namespace :users do
     desc 'segment all subscribed users'
     task segment: :environment do
-      if Spree::Chimpy.segment_exists?
+      if SpreeChimpy.segment_exists?
         emails = Spree.user_class.where(subscribed: true).pluck(:email)
         puts "Segmenting all subscribed users"
-        response = Spree::Chimpy.list.segment(emails)
+        response = SpreeChimpy.list.segment(emails)
         response["errors"].try :each do |error|
           puts "Error #{error["code"]} with email: #{error["email"]} \n msg: #{error["msg"]}"
         end
@@ -51,7 +51,7 @@ namespace :spree_chimpy do
     task sync_from_mailchimp: :environment do
       puts "Syncing users with data from Mailchimp"
 
-      list = Spree::Chimpy.list
+      list = SpreeChimpy.list
 
       emails_and_statuses = emails_and_statuses_for_list list
 

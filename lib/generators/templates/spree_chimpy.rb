@@ -1,4 +1,4 @@
-Spree::Chimpy.config do |config|
+SpreeChimpy.config do |config|
   # your API key as provided by MailChimp
   # config.key = 'your-api-key'
 

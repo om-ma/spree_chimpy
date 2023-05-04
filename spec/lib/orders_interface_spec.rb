@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::Chimpy::Interface::Orders do
+describe SpreeChimpy::Interface::Orders do
   let(:interface) { described_class.new }
 
   let(:store_api) { double(:store_api) }
@@ -9,13 +9,13 @@ describe Spree::Chimpy::Interface::Orders do
   let(:order) { create(:order) }
 
   before(:each) do
-    allow(Spree::Chimpy).to receive(:store_api_call) { store_api }
+    allow(SpreeChimpy).to receive(:store_api_call) { store_api }
   end
 
   context "adding an order" do
     it "calls the order upserter" do
 
-      expect_any_instance_of(Spree::Chimpy::Interface::OrderUpserter).to receive(:upsert)
+      expect_any_instance_of(SpreeChimpy::Interface::OrderUpserter).to receive(:upsert)
       interface.add(order)
     end
   end

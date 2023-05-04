@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::Chimpy::Interface::CustomerUpserter do
+describe SpreeChimpy::Interface::CustomerUpserter do
   let(:store_api) { double(:store_api) }
   let(:customer_api) { double(:customer_api) }
   let(:customers_api) { double(:customers_api) }
@@ -10,7 +10,7 @@ describe Spree::Chimpy::Interface::CustomerUpserter do
   let(:order) {
     allow_any_instance_of(Spree::Order).to receive(:notify_mail_chimp).and_return(true)
     order = create(:completed_order_with_totals)
-    order.source = Spree::Chimpy::OrderSource.new(email_id: email_id, campaign_id: campaign_id)
+    order.source = SpreeChimpy::OrderSource.new(email_id: email_id, campaign_id: campaign_id)
     order.save
     order
   }
@@ -18,9 +18,9 @@ describe Spree::Chimpy::Interface::CustomerUpserter do
   let(:list)      { double(:list) }
 
   before(:each) do
-    allow(Spree::Chimpy).to receive(:store_api_call) { store_api }
-    Spree::Chimpy.stub(list: list)
-    Spree::Chimpy::Config.subscribe_to_list = true
+    allow(SpreeChimpy).to receive(:store_api_call) { store_api }
+    SpreeChimpy.stub(list: list)
+    SpreeChimpy::Config.subscribe_to_list = true
   end
 
   describe ".ensure_customers" do
@@ -30,7 +30,7 @@ describe Spree::Chimpy::Interface::CustomerUpserter do
     # When no customer exists for that mc_eid, it will create the customer for the order email
     # Should this remain due to v3.0 updates?
     it "retrieves the customer id from the order source if it exists" do
-      order.source = Spree::Chimpy::OrderSource.new(email_id: 'id-abcd')
+      order.source = SpreeChimpy::OrderSource.new(email_id: 'id-abcd')
       order.save
 
       allow(interface).to receive(:customer_id_from_eid)
@@ -95,7 +95,7 @@ describe Spree::Chimpy::Interface::CustomerUpserter do
     end
 
     it "honors subscribe_to_list settings" do
-      Spree::Chimpy::Config.subscribe_to_list = false
+      SpreeChimpy::Config.subscribe_to_list = false
 
       allow(customer_api).to receive(:retrieve)
         .and_raise(Gibbon::MailChimpError)

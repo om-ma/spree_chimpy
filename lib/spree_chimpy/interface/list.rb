@@ -1,9 +1,9 @@
 require 'digest'
 
-module Spree::Chimpy
+module SpreeChimpy
   module Interface
     class List
-      delegate :log, to: Spree::Chimpy
+      delegate :log, to: SpreeChimpy
 
       def initialize(list_name, segment_name, double_opt_in, send_welcome_email, list_id)
         @list_id       = list_id
@@ -15,9 +15,9 @@ module Spree::Chimpy
 
       def api_call(list_id = nil)
         if list_id
-          Spree::Chimpy.api.lists(list_id)
+          SpreeChimpy.api.lists(list_id)
         else
-          Spree::Chimpy.api.lists
+          SpreeChimpy.api.lists
         end
       end
 
